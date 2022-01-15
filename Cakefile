@@ -24,16 +24,16 @@ task 'compile-browser', 'Compile with browserify for the web', ->
   .require('./lib/psd.coffee', expose: 'psd')
   .bundle (err, src, map) ->
     return console.log(err) if err?
-    writeFile('./dist/psd.js', src)
+    writeFile('./dist-browser/psd.js', src)
       .then ->
-        minSrc = UglifyJS.minify './dist/psd.js',
+        minSrc = UglifyJS.minify './dist-browser/psd.js',
           outSourceMap: 'psd.js.map'
           sourceRoot: '/'
 
-        writeFile './dist/psd.min.js', minSrc.code
+        writeFile './dist-browser/psd.min.js', minSrc.code
         minSrc
       .then (minSrc) ->
-        writeFile './dist/psd.js.map', minSrc.map
+        writeFile './dist-browser/psd.js.map', minSrc.map
       .then ->
         console.log 'Finished!'
 
